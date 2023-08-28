@@ -1,0 +1,22 @@
+Lua
+├── MainGame	//游戏逻辑目录
+              ├── Common	//通用模块
+              ├── Configs	//配置
+              ├── Const		//常量定义
+              ├── Game		//游戏具体逻辑
+              ├── UI		//UI
+├── Engine              //核心代码目录
+          ├── Common		//通用
+                      ├── Structs		//自定义结构体
+                      ├── Utilities		//工具类
+                      ├── Const		//常量定义目录
+          ├── Game                     //
+                     ├── Logic                           //GameLoop
+                     ├── Managers	                //对C#层Managers的封装
+                     ├── Settings		//游戏设置
+          ├── Systems		//各个系统
+                      ├── AudioSystem	//音频系统
+                      ├── Network		//网络
+                      ├── ObjectSystem	//对象系统
+                      ├── ResourceSystem	//资源系统
+          ├── UI	//UI框架
