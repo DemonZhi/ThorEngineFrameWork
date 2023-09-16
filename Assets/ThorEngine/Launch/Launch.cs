@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 
-namespace ThorEngine.Croe 
+namespace ThorEngine.Core 
 {
     public class Launch : MonoBehaviour
     {

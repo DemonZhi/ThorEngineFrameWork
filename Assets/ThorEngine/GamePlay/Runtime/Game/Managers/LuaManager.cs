@@ -417,5 +417,26 @@ namespace ThorEngine.Core
             m_LuaState.Push(value);
             m_LuaState.LuaSetGlobal(key);
         }
+
+        public static LuaFunction DebugTraceback;
+        public static void CallCurrentTrackback(string str = "",  LuaUtiltiy.LogLevel elogLevel = LuaUtiltiy.LogLevel.Info) 
+        {
+            if (!Main.s_IsDebug)
+            {
+                return;
+            }
+
+            if (DebugTraceback != null)
+            {
+                string strTrackback = DebugTraceback.Invoke<string>();
+                switch (elogLevel)
+                {
+                    case LuaUtiltiy.LogLevel.Info: Logger.LogInfo("[LuaManager](CallCurrentTraceback) LuaTrackback:" + str + "\n" + strTrackback); break;
+                    case LuaUtiltiy.LogLevel.Warn: Logger.LogWarning("[LuaManager](CallCurrentTraceback) LuaTrackback:" + str + "\n" + strTrackback); break;
+                    case LuaUtiltiy.LogLevel.Error: Logger.LogError("[LuaManager](CallCurrentTraceback) LuaTrackback:" + str + "\n" + strTrackback); break;
+                }
+            }
+
+        }
     }
 }

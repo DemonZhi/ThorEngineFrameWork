@@ -1,3 +1,5 @@
+local UICanvasTypeEnum = require("MainGame/UI/Configs/UICanvasTypeEnum")
+
 local Core_UIManager = SGEngine.UI.UIManager
 local GameObject = UnityEngine.GameObject
 local PoolingStrategyTypeEnum = require("Engine/Systems/ResourceSystem/PoolingStrategyTypeEnum")

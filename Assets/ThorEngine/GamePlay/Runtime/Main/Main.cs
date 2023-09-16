@@ -9,6 +9,8 @@ namespace ThorEngine.Core
     {
         public static GameConfig GameConfig;
         public static GameObject GlobalModule;
+
+        public static bool s_IsDebug = true;
         public static async void Init()
         {
 

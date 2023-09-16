@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ThorEngine.Croe
+namespace ThorEngine.Core
 {
     [CreateAssetMenu(fileName = "LaunchConfig.asset", menuName = "ThorEngine/Setting/Creat LaunchConfig")]
     public class LaunchConfig : ScriptableObject
     {
-        [Header("ÓÎÏ·Èë¿Ú·´ÉäĞÅÏ¢")]
+        [Header("æ¸¸æˆå…¥å£åå°„ä¿¡æ¯")]
         public string entryAssembly;
         public string entryType;
         public string entryMethod;
 
-        [Header("ÊÇ·ñÊ¹ÓÃremoteURL")]
+        [Header("æ˜¯å¦ä½¿ç”¨remoteURL")]
         public bool enableRemoteURL;
 
-        [Header("ÈÈ¸üDllµØÖ·")]
+        [Header("çƒ­æ›´Dllåœ°å€")]
         public string[] assemblyRemoteURL;
 
-        [Header("ÊÇ·ñAndroidAB°ü")]
+        [Header("æ˜¯å¦AndroidABåŒ…")]
         public bool isAndroidAB;
 
-        [Header("Æô¶¯UWA")]
+        [Header("å¯åŠ¨UWA")]
         public bool enableUWA;
 
     }
