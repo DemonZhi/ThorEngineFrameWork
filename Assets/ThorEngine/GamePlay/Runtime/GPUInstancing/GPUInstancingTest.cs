@@ -9,18 +9,29 @@ public class GPUInstancingTest : MonoBehaviour
 {
     public GameObject role1Prefab;
     public DynamicArray<GameObject> roleObjects = new DynamicArray<GameObject>();
+    public List<Transform> roleTramsfromList = new List<Transform>();
+    public List<Vector3> roleTramsfromPosition = new List<Vector3>();
+    public List<int> viewChunkIndex = new List<int>();
     private Random.Random random;
+    private ComputeChunkIndexJob m_ComputeIndexJob;
+
+    private void Awake()
+    {
+        m_ComputeIndexJob = this.gameObject.GetComponent<ComputeChunkIndexJob>();
+    }
+
     // Start is called before the first frame update
     private void Start()
     {
         random = Random.Random.CreateFromIndex(1);
+        viewChunkIndex.Add(1);
         CreatRole();
     }
 
     // Update is called once per frame
     private void Update()
     {
-        
+        m_ComputeIndexJob.SetObjectsPosition(roleTramsfromPosition.ToArray(), viewChunkIndex);
     }
 
     private void CreatRole() 
@@ -34,6 +45,8 @@ public class GPUInstancingTest : MonoBehaviour
             {
                 float3 randPosition = random.NextFloat3(min, max);
                 GameObject roleObject = GameObject.Instantiate(role1Prefab, randPosition, Quaternion.identity);
+                roleTramsfromList.Add(roleObject.transform);
+                roleTramsfromPosition.Add(roleObject.transform.position);
                 roleObjects.Add(roleObject);
             }
         }

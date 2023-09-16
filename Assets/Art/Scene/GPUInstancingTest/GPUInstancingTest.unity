@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028346, g: 0.22571373, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -366,6 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1853753916}
   - component: {fileID: 1853753917}
+  - component: {fileID: 1853753918}
   m_Layer: 0
   m_Name: GPUInstancingTest
   m_TagString: Untagged
@@ -402,6 +403,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   role1Prefab: {fileID: 7403997041906756763, guid: 3b03520d8d0b7374e8f1b7ba91e879ff,
     type: 3}
+--- !u!114 &1853753918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853753915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edfc9f65b4ce7048a7c25fb8fb808d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7403997042396122465
 PrefabInstance:
   m_ObjectHideFlags: 0
