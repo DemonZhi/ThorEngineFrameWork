@@ -24,7 +24,7 @@ public class GPUInstancingTest : MonoBehaviour
     private void Start()
     {
         random = Random.Random.CreateFromIndex(1);
-        viewChunkIndex.Add(1);
+        viewChunkIndex.Add(68);
         CreatRole();
     }
 

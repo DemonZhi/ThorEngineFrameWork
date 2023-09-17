@@ -12,12 +12,12 @@ public class ComputeChunkIndexJob : MonoBehaviour
         [ReadOnly]
         public NativeArray<Vector3> position;
         [ReadOnly]
-        public NativeList<int> viewChunkIndex;
+        public NativeList<int> chunkIndexInViewList;
+                
+        public NativeArray<int> chunkIndexArray;
+        public NativeArray<bool> isChunkIndexInViewArray;
 
-        
-        public NativeArray<int> chunkIndex;
         public int ExcuteCount;
-
         private float m_OrignalX;
         private float m_OrignalY;
         private float m_ChunkSizeRcp;
@@ -32,10 +32,17 @@ public class ComputeChunkIndexJob : MonoBehaviour
         }
 
         public void Execute(int index)
-        {             
-            chunkIndex[index] = GetChunkIndexWithCoord(GetChunkCoordWithPositionWS(position[index].x, position[index].y));
-            ExcuteCount++;
-            
+        {
+            int chunkIndex = GetChunkIndexWithCoord(GetChunkCoordWithPositionWS(position[index].x, position[index].y));
+            chunkIndexArray[index] = chunkIndex;            
+            if (chunkIndexInViewList.Contains(chunkIndex)) 
+            {
+                isChunkIndexInViewArray[index] = true;
+            }
+            else
+            {
+                isChunkIndexInViewArray[index] = false;
+            }
         }
 
         private Vector2Int GetChunkCoordWithPositionWS(float positionX, float positionY)
@@ -62,34 +69,45 @@ public class ComputeChunkIndexJob : MonoBehaviour
         
     private NativeArray<Vector3> m_PositionArray;
     private NativeArray<int> m_ChunkIndexArray;
-    private NativeList<int> m_ViewIndexArray;
+    private NativeList<int> m_ChunkIndexInViewList;    
 
+    private NativeArray<bool> m_IsChunkIndexInViewArray;
 
     public void SetObjectsPosition(Vector3[] ObjectsPosition, List<int> viewIndex)
     {
         m_PositionArray = new NativeArray<Vector3>(ObjectsPosition, Allocator.TempJob);
-        m_ViewIndexArray = new NativeList<int>(viewIndex.Count, Allocator.TempJob);
         m_ChunkIndexArray = new NativeArray<int>(ObjectsPosition.Length, Allocator.TempJob);
-        
+        m_IsChunkIndexInViewArray = new NativeArray<bool>(ObjectsPosition.Length, Allocator.TempJob);
 
+        m_ChunkIndexInViewList = new NativeList<int>(viewIndex.Count, Allocator.TempJob);
+        for (int i = 0; i < viewIndex.Count; i++)
+        {
+            m_ChunkIndexInViewList.Add(viewIndex[i]);
+        }
 
         ComputeIndexJob computeIndexJob = new ComputeIndexJob();
         computeIndexJob.InitChunkData(m_OrignalX, m_OrignalY, math.rcp(m_ChunkSize), m_ChunkMaxCoord);
         computeIndexJob.position = m_PositionArray;
-        computeIndexJob.chunkIndex = m_ChunkIndexArray;
-        computeIndexJob.viewChunkIndex = m_ViewIndexArray;
-        //Schedule the job with one Execute per index in the resule array and only 1 item processing bath
+        computeIndexJob.chunkIndexArray = m_ChunkIndexArray;
+        computeIndexJob.chunkIndexInViewList = m_ChunkIndexInViewList;
+        
+        computeIndexJob.isChunkIndexInViewArray = m_IsChunkIndexInViewArray;
+                
+        
         JobHandle handle = computeIndexJob.Schedule(m_ChunkIndexArray.Length, 100);
         handle.Complete();
-
-        Debug.Log("ExcuteCount:" + computeIndexJob.ExcuteCount);
-        for (int i = 0; i < m_ChunkIndexArray.Length; i++) 
+                
+        for (int i = 0; i < m_IsChunkIndexInViewArray.Length; i++) 
         {
-            Debug.Log(m_ChunkIndexArray[i]);
+            Debug.Log("isChunkIndexInViewArray: " + m_IsChunkIndexInViewArray[i] + " i:"+ i);
         }
         
         m_PositionArray.Dispose();
         m_ChunkIndexArray.Dispose();
+        m_ChunkIndexInViewList.Dispose();
+        m_IsChunkIndexInViewArray.Dispose();
+
+
     }
 
     private void DisposeAll() 
