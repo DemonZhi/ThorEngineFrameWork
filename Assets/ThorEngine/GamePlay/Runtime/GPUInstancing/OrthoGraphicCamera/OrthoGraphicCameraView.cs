@@ -10,8 +10,6 @@ public class OrthoGraphicCameraView : MonoBehaviour
 
     public Vector2 orignalPosition = new Vector2(-100, -100);
    
-    private Vector3[] M
-
     private Transform m_MainCameraTrans;
     // Start is called before the first frame update
     private void Start()
