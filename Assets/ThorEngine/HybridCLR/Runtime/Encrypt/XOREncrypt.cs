@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OdinXOREncrypt
+public class XOREncrypt
 {
     private static readonly byte[] k_Key = new byte[]
     {
